@@ -14,7 +14,7 @@ public interface FileService {
 
     void assignTags(String id, String[] tags);
 
-    void removeTags(String id, String[] tags);
+    boolean removeTags(String id, String[] tags);
 
     Page<File> findByTags(List<String> tags, Pageable pageable);
 

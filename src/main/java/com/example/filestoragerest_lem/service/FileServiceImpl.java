@@ -36,15 +36,18 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public void removeTags(String id, String[] tags) {
-        Optional<File> myfile = repository.findById(id);
-        myfile.ifPresent(file -> {
+    public boolean removeTags(String id, String[] tags) {
+        final boolean[] succsess = {false};
+        Optional<File> optionalFile = repository.findById(id);
+        optionalFile.ifPresent(file -> {
             if (!file.getTags().isEmpty() && tags.length != 0
                     && !Collections.disjoint(file.getTags(), Arrays.asList(tags))) {
                 file.getTags().removeAll(Arrays.asList(tags));
                 repository.save(file);
+                succsess[0] =true;
             }
         });
+        return succsess[0];
     }
 
     @Override
