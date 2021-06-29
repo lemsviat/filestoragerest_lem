@@ -21,4 +21,5 @@ public interface MyFileService {
 
     boolean isExistById(String ID);
 
+    Page<MyFile> findAll(Pageable pageable);
 }

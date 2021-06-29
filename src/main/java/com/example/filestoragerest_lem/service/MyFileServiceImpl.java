@@ -53,5 +53,10 @@ public class MyFileServiceImpl implements MyFileService {
         return repository.existsById(ID);
     }
 
+    @Override
+    public Page<MyFile> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
 }
 

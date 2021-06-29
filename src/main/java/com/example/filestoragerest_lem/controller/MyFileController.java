@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("/")
@@ -33,10 +33,6 @@ public class MyFileController {
             myFileService.delete(id);
             return HttpStatus.OK;
         } else return HttpStatus.NOT_FOUND;
-
-       /*     return "success : true";
-        } else return "success : false,\n" +
-                "error : file not found";*/
     }
 
     @PostMapping(value = "/file/{ID}/tags")
@@ -45,24 +41,18 @@ public class MyFileController {
         return "success : true";
     }
 
-    /*@PostMapping(value = "/file/{ID}/tags2")
-    public String assignTags2(@PathVariable("ID") String id, @Valid @RequestBody String [] tagsIn) {
-        //myFileService.assignTags(id, tagsIn);
-        return "success : true";
-    }*/
-
     @DeleteMapping(value = "/file/{ID}/tags")
     public String removeTags(@PathVariable("ID") String id, @Valid @RequestBody Tags tagsIn) {
         myFileService.removeTags(id, tagsIn);
         return "success : true";
     }
 
-    @GetMapping (value = "/file?tags={tags}&page={page}&size={size}")
-    public Page<MyFile> getByTags(@PathVariable List<String> tags, @PathVariable Integer page,
-                                  @PathVariable Integer size) {
-    //public Page<MyFile> getByTags (@PageableDefault(value = 10, page = 0) Pageable pageable) {
+    @GetMapping (value = "/file")
+    public Page<MyFile> getByTags(@RequestParam (defaultValue = "") String [] tags, @RequestParam (defaultValue = "0") Integer page,
+                                  @RequestParam (defaultValue = "10") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        return myFileService.findByTags(tags, pageable);
+        if(tags.length!=0) return myFileService.findByTags(Arrays.asList(tags), pageable);
+        else return myFileService.findAll(pageable);
     }
 
 
