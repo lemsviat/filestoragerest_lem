@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,19 +27,19 @@ public class MyFileServiceImpl implements MyFileService {
     }
 
     @Override
-    public void assignTags(String ID, Tags tags) {
+    public void assignTags(String ID, String[] tags) {
         Optional<MyFile> myFile = repository.findById(ID);
         myFile.ifPresent(file -> {
-            file.setTags(tags.getTags());
+            file.setTags(Arrays.asList(tags));
             repository.save(file);
         });
     }
 
     @Override
-    public void removeTags(String ID, Tags tags) {
+    public void removeTags(String ID, String[] tags) {
         Optional<MyFile> myFile = repository.findById(ID);
         myFile.ifPresent(file -> {
-            file.getTags().removeAll(tags.getTags());
+            file.getTags().removeAll(Arrays.asList(tags));
             repository.save(file);
         });
     }
@@ -57,6 +58,7 @@ public class MyFileServiceImpl implements MyFileService {
     public Page<MyFile> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
+
 
 }
 

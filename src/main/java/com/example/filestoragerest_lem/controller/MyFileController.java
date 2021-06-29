@@ -1,7 +1,5 @@
 package com.example.filestoragerest_lem.controller;
-
 import com.example.filestoragerest_lem.model.MyFile;
-import com.example.filestoragerest_lem.model.Tags;
 import com.example.filestoragerest_lem.service.MyFileServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,15 +34,16 @@ public class MyFileController {
     }
 
     @PostMapping(value = "/file/{ID}/tags")
-    public String assignTags(@PathVariable("ID") String id, @Valid @RequestBody Tags tagsIn) {
+    public String assignTags(@PathVariable("ID") String id, @Valid @RequestBody String [] tagsIn) {
         myFileService.assignTags(id, tagsIn);
         return "success : true";
     }
 
     @DeleteMapping(value = "/file/{ID}/tags")
-    public String removeTags(@PathVariable("ID") String id, @Valid @RequestBody Tags tagsIn) {
+    public String removeTags(@PathVariable("ID") String id, @Valid @RequestBody String[] tagsIn) {
         myFileService.removeTags(id, tagsIn);
         return "success : true";
+
     }
 
     @GetMapping (value = "/file")
