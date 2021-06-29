@@ -10,15 +10,15 @@ public interface FileService {
 
     void upload(File file);
 
-    void delete(String ID);
+    void delete(String id);
 
-    void assignTags(String ID, String[] tags);
+    void assignTags(String id, String[] tags);
 
-    void removeTags(String ID, String[] tags);
+    void removeTags(String id, String[] tags);
 
     Page<File> findByTags(List<String> tags, Pageable pageable);
 
-    boolean isExistById(String ID);
+    boolean isExistById(String id);
 
     Page<File> findAll(Pageable pageable);
 

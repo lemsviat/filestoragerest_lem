@@ -34,14 +34,14 @@ public class FileController {
     }
 
     @PostMapping(value = "/file/{ID}/tags")
-    public String assignTags(@PathVariable("ID") String id, @Valid @RequestBody String [] tagsIn) {
-        myFileService.assignTags(id, tagsIn);
+    public String assignTags(@PathVariable("ID") String id, @Valid @RequestBody String [] tags) {
+        myFileService.assignTags(id, tags);
         return "success : true";
     }
 
     @DeleteMapping(value = "/file/{ID}/tags")
-    public String removeTags(@PathVariable("ID") String id, @Valid @RequestBody String[] tagsIn) {
-        myFileService.removeTags(id, tagsIn);
+    public String removeTags(@PathVariable("ID") String id, @Valid @RequestBody String[] tags) {
+        myFileService.removeTags(id, tags);
         return "success : true";
 
     }

@@ -1,7 +1,5 @@
 package com.example.filestoragerest_lem;
 
-import com.example.filestoragerest_lem.model.File;
-import com.example.filestoragerest_lem.service.FileServiceImpl;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -29,11 +27,6 @@ class FilestoragerestLemApplicationTests {
 
     @Test
     public void givenUploadedFile() {
-
-        FileServiceImpl myFileService = new FileServiceImpl();
-        tags.add(0, "tag1");
-        File file1 = new File("2", "Document_1", 122334, tags);
-        myFileService.upload(file1);
         //Assertions.assertEquals(.......);
     }
 }
