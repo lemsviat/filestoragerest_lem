@@ -1,4 +1,4 @@
-package com.example.filestoragerest_lem;
+package com.example.filestoragerest_lem.configuration;
 
 import org.elasticsearch.client.RestHighLevelClient;
 import org.jetbrains.annotations.NotNull;

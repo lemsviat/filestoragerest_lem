@@ -1,6 +1,6 @@
 package com.example.filestoragerest_lem.controller;
-import com.example.filestoragerest_lem.model.MyFile;
-import com.example.filestoragerest_lem.service.MyFileServiceImpl;
+import com.example.filestoragerest_lem.model.File;
+import com.example.filestoragerest_lem.service.FileServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,17 +12,17 @@ import java.util.Arrays;
 
 @RestController
 @RequestMapping("/")
-public class MyFileController {
-    private final MyFileServiceImpl myFileService;
+public class FileController {
+    private final FileServiceImpl myFileService;
 
-    public MyFileController(MyFileServiceImpl myFileService) {
+    public FileController(FileServiceImpl myFileService) {
         this.myFileService = myFileService;
     }
 
     @PostMapping("/file")
-    public String upload(@Valid @RequestBody MyFile myFile) {
-        myFileService.upload(myFile);
-        return "ID: " + myFile.getId();
+    public String upload(@Valid @RequestBody File file) {
+        myFileService.upload(file);
+        return "ID: " + file.getId();
     }
 
     @DeleteMapping("/file/{ID}")
@@ -47,8 +47,8 @@ public class MyFileController {
     }
 
     @GetMapping (value = "/file")
-    public Page<MyFile> getByTags(@RequestParam (defaultValue = "") String [] tags, @RequestParam (defaultValue = "0") Integer page,
-                                  @RequestParam (defaultValue = "10") Integer size) {
+    public Page<File> getByTags(@RequestParam (defaultValue = "") String [] tags, @RequestParam (defaultValue = "0") Integer page,
+                                @RequestParam (defaultValue = "10") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         if(tags.length!=0) return myFileService.findByTags(Arrays.asList(tags), pageable);
         else return myFileService.findAll(pageable);

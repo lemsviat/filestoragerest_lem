@@ -1,16 +1,10 @@
 package com.example.filestoragerest_lem;
 
-import com.example.filestoragerest_lem.model.MyFile;
-import com.example.filestoragerest_lem.service.MyFileServiceImpl;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.client.RestHighLevelClient;
+import com.example.filestoragerest_lem.model.File;
+import com.example.filestoragerest_lem.service.FileServiceImpl;
 import org.junit.Before;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.elasticsearch.client.ClientConfiguration;
-import org.springframework.data.elasticsearch.client.RestClients;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +40,10 @@ class FilestoragerestLemApplicationTests {
     @Test
     public void givenUploadedFile() {
 
-        MyFileServiceImpl myFileService = new MyFileServiceImpl();
+        FileServiceImpl myFileService = new FileServiceImpl();
         tags.add(0, "tag1");
-        MyFile myFile1 = new MyFile("2", "Document_1", 122334, tags);
-        myFileService.upload(myFile1);
+        File file1 = new File("2", "Document_1", 122334, tags);
+        myFileService.upload(file1);
         //Assertions.assertEquals("tag1", tags.get(0));
     }
 }

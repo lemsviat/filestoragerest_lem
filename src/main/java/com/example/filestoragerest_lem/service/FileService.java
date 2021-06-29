@@ -1,14 +1,14 @@
 package com.example.filestoragerest_lem.service;
 
-import com.example.filestoragerest_lem.model.MyFile;
+import com.example.filestoragerest_lem.model.File;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface MyFileService {
+public interface FileService {
 
-    void upload(MyFile myFile);
+    void upload(File file);
 
     void delete(String ID);
 
@@ -16,10 +16,10 @@ public interface MyFileService {
 
     void removeTags(String ID, String[] tags);
 
-    Page<MyFile> findByTags(List<String> tags, Pageable pageable);
+    Page<File> findByTags(List<String> tags, Pageable pageable);
 
     boolean isExistById(String ID);
 
-    Page<MyFile> findAll(Pageable pageable);
+    Page<File> findAll(Pageable pageable);
 
 }
