@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,15 +39,11 @@ public class FileServiceImpl implements FileService {
     public void removeTags(String id, String[] tags) {
         Optional<File> myfile = repository.findById(id);
         myfile.ifPresent(file -> {
-            if (!file.getTags().isEmpty()) {
-                for (String tag : tags) {
-                    if (file.getTags().contains(tag))
-                        break;
-                }
+            if (!file.getTags().isEmpty() && tags.length != 0
+                    && !Collections.disjoint(file.getTags(), Arrays.asList(tags))) {
                 file.getTags().removeAll(Arrays.asList(tags));
                 repository.save(file);
             }
-
         });
     }
 
