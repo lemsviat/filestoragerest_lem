@@ -12,7 +12,7 @@ Spring Boot Starter Validation, etc.)
 
 •	Download and unzip Elasticsearch from https://www.elastic.co/downloads/elasticsearch;
 
-•	Run bin/elasticsearch (or bin\elasticsearch.bat on Windows);
+•	Run `bin/elasticsearch` (or `bin\elasticsearch.bat` on Windows);
 
 •	Run `curl http://localhost:9200;`
 
