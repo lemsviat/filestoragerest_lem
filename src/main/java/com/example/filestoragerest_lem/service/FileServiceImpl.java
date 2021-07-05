@@ -2,15 +2,15 @@ package com.example.filestoragerest_lem.service;
 
 import com.example.filestoragerest_lem.model.File;
 import com.example.filestoragerest_lem.repository.FileRepository;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -27,12 +27,17 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public void assignTags(String id, String[] tags) {
+    public boolean assignTags(String id, String[] tags) {
+        final boolean[] success = {false};
         Optional<File> myfile = repository.findById(id);
         myfile.ifPresent(file -> {
-            file.setTags(Arrays.asList(tags));
+            file.setTags(Stream.of(file.getTags(), Arrays.asList(tags))
+                    .flatMap(Collection::stream).distinct()
+                    .collect(Collectors.toList()));
             repository.save(file);
+            success[0] =true;
         });
+        return success[0];
     }
 
     @Override
@@ -44,7 +49,7 @@ public class FileServiceImpl implements FileService {
                     && !Collections.disjoint(file.getTags(), Arrays.asList(tags))) {
                 file.getTags().removeAll(Arrays.asList(tags));
                 repository.save(file);
-                success[0] =true;
+                success[0] = true;
             }
         });
         return success[0];
@@ -56,7 +61,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public boolean isExistById(String id) {
+    public boolean isExistById(@NonNull String id) {
         return repository.existsById(id);
     }
 

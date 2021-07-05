@@ -12,7 +12,7 @@ public interface FileService {
 
     void delete(String id);
 
-    void assignTags(String id, String[] tags);
+    boolean assignTags(String id, String[] tags);
 
     boolean removeTags(String id, String[] tags);
 
