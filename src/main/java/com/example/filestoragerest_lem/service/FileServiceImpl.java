@@ -35,7 +35,7 @@ public class FileServiceImpl implements FileService {
                     .flatMap(Collection::stream).distinct()
                     .collect(Collectors.toList()));
             repository.save(file);
-            success[0] =true;
+            success[0] = true;
         });
         return success[0];
     }
@@ -68,6 +68,11 @@ public class FileServiceImpl implements FileService {
     @Override
     public Page<File> findAll(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    @Override
+    public Page<File> findByName(String name, Pageable pageable) {
+        return repository.findByNameContaining(name, pageable);
     }
 
 

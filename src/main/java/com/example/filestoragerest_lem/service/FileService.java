@@ -22,4 +22,5 @@ public interface FileService {
 
     Page<File> findAll(Pageable pageable);
 
+    Page<File> findByName(String name, Pageable pageable);
 }
