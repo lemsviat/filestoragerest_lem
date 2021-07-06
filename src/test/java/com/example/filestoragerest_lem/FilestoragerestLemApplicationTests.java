@@ -40,7 +40,7 @@ class FilestoragerestLemApplicationTests {
     @Test
     public void givenJsonString_whenJavaObject_thenIndexDocument() throws IOException {
         String jsonObject = "{\"name\":\"Natasha2.flac\",\"size\":1,\"tags\":[\"tag4\"]}";
-        IndexRequest request = new IndexRequest("myfiles");
+        IndexRequest request = new IndexRequest("files");
         request.source(jsonObject, XContentType.JSON);
 
         IndexResponse response = setUp().index(request, RequestOptions.DEFAULT);
@@ -49,7 +49,7 @@ class FilestoragerestLemApplicationTests {
 
         Assertions.assertEquals(DocWriteResponse.Result.CREATED, response.getResult());
         Assertions.assertEquals(1, version);
-        Assertions.assertEquals("myfiles", index);
+        Assertions.assertEquals("files", index);
     }
 
     @Test

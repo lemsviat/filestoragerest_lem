@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,10 +30,11 @@ public class FileServiceImpl implements FileService {
     @Override
     public boolean assignTags(String id, String[] tags) {
         final boolean[] success = {false};
-        Optional<File> myfile = repository.findById(id);
-        myfile.ifPresent(file -> {
+        Optional<File> fileOptional = repository.findById(id);
+        fileOptional.ifPresent(file -> {
             file.setTags(Stream.of(file.getTags(), Arrays.asList(tags))
-                    .flatMap(Collection::stream).distinct()
+                    .flatMap(Collection::stream)
+                    .distinct()
                     .collect(Collectors.toList()));
             repository.save(file);
             success[0] = true;
@@ -73,6 +75,11 @@ public class FileServiceImpl implements FileService {
     @Override
     public Page<File> findByName(String name, Pageable pageable) {
         return repository.findByNameContaining(name, pageable);
+    }
+
+    @PostConstruct
+    public void remove(){
+        repository.deleteAll();
     }
 
 

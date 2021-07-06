@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName = "myfiles")
+@Document(indexName = "files")
 public class File {
     @Id
     private String id;
@@ -29,5 +29,5 @@ public class File {
     private int size;
 
     @Field(type = FieldType.Text)
-    private List<String>tags;
+    private List<String> tags;
 }
