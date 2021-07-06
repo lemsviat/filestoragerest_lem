@@ -73,6 +73,4 @@ public class FileController {
             return converter.convert(fileService.findAll(pageable));
         }
     }
-
-
 }

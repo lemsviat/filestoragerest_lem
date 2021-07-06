@@ -26,6 +26,7 @@ public class FileServiceTest {
     @InjectMocks
     private FileServiceImpl fileService;
 
+
     @Test
     public void shouldReturnFileIfTheyPresent() {
         File file = new File();
@@ -43,5 +44,4 @@ public class FileServiceTest {
         boolean existById = fileService.isExistById(fileId);
         assertTrue(existById);
     }
-
 }
