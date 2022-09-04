@@ -26,14 +26,14 @@ public class FileController {
     private final PageFileToPageContentConverter converter;
 
     @PostMapping("/file")
-    public ResponseEntity upload(@Valid @RequestBody File file) {
+    public ResponseEntity<?> upload(@Valid @RequestBody File file) {
         fileService.upload(file);
         fileService.assignTags(file.getId(), FileExtensionToTagConverter.getTagByExtension(file));
         return new ResponseEntity<>(new ApiMessage(file.getId()), HttpStatus.OK);
     }
 
     @DeleteMapping("/file/{ID}")
-    public ResponseEntity delete(@PathVariable("ID") String id) {
+    public ResponseEntity<?> delete(@PathVariable("ID") String id) {
         if (fileService.isExistById(id)) {
             fileService.delete(id);
             return new ResponseEntity<>(new ApiSuccess(true), HttpStatus.OK);
@@ -43,7 +43,7 @@ public class FileController {
     }
 
     @PostMapping(value = "/file/{ID}/tags")
-    public ResponseEntity assignTags(@PathVariable("ID") String id, @Valid @RequestBody String[] tags) {
+    public ResponseEntity<?> assignTags(@PathVariable("ID") String id, @Valid @RequestBody String[] tags) {
         if (fileService.assignTags(id, tags)) {
             return new ResponseEntity<>(new ApiSuccess(true), HttpStatus.OK);
         } else {
@@ -52,7 +52,7 @@ public class FileController {
     }
 
     @DeleteMapping(value = "/file/{ID}/tags")
-    public ResponseEntity removeTags(@PathVariable("ID") String id, @Valid @RequestBody String[] tags) {
+    public ResponseEntity<?> removeTags(@PathVariable("ID") String id, @Valid @RequestBody String[] tags) {
         if (fileService.removeTags(id, tags)) {
             return new ResponseEntity<>(new ApiSuccess(true), HttpStatus.OK);
         } else {
